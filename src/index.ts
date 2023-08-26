@@ -1,7 +1,7 @@
 import express from 'express';
 
 import { injectEnvFiles } from './envs';
-import { getCategories, getConfigs } from './methods';
+import { getCategories, getConfigs, getEvents } from './methods';
 
 injectEnvFiles('.env', '');
 
@@ -13,6 +13,10 @@ app.get('/events/categories', function(req, res) {
 
 app.get('/events/config', function(req, res) {
   getConfigs().pipe(res);
+});
+
+app.get('/events/list', function(req, res) {
+  getEvents(req.params || {}).pipe(res);
 });
 
 app.listen(process.env?.SERVER_PORT ?? 8001, () => {
